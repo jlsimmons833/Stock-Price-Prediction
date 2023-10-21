@@ -1,18 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-Created on Mon Jul 10 13:54:11 2017
 
-@author: dhingratul
-
-Predicts the next day (closing) stock prices for S&P 500 data using LSTM,
-and 1D conv layer
-"""
-from keras.layers.core import Dense, Activation, Dropout
-from keras.layers.recurrent import LSTM
-from keras.models import Sequential
-from keras.layers.convolutional import Conv1D
-from keras.layers.convolutional import MaxPooling1D
+from tensorflow.keras.layers import Dense, Activation, Dropout
+from tensorflow.keras.layers import LSTM
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Conv1D
+from tensorflow.keras.layers import MaxPooling1D
 import helper
 import time
 from sklearn.metrics import mean_squared_error
@@ -21,12 +14,12 @@ import numpy as np
 # Load Data
 seq_len = 50
 norm_win = True
-filename = '../data/sp500.csv'
+filename = './../sp500_prices.csv'
 X_tr, Y_tr, X_te, Y_te = helper.load_data(filename, seq_len, norm_win)
 # Model Build
 model = Sequential()
 model.add(LSTM(input_dim=1,
-               output_dim=seq_len,
+               units=seq_len,
                return_sequences=True))
 model.add(Dropout(0.2))
 model.add(Conv1D(filters=32, kernel_size=3, padding='same', activation='relu'))
@@ -34,7 +27,7 @@ model.add(MaxPooling1D(pool_size=2))
 model.add(LSTM(100,
                return_sequences=False))
 model.add(Dropout(0.2))
-model.add(Dense(output_dim=1))  # Linear dense layer to aggregate into 1 val
+model.add(Dense(units=seq_len))  # Linear dense layer to aggregate into 1 val
 model.add(Activation('linear'))
 timer_start = time.time()
 model.compile(loss='mse', optimizer='rmsprop')
@@ -43,7 +36,7 @@ print('Model built in: ', time.time()-timer_start)
 model.fit(X_tr,
           Y_tr,
           batch_size=512,
-          nb_epoch=200,
+          epochs=5,
           validation_split=0.05
           )
 # Predictions

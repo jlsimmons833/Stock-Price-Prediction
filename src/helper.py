@@ -31,7 +31,7 @@ def load_data(filename, seq_len, norm_win):
     """
     Loads the data from a csv file into arrays
 
-    Input: Filename, sequence Lenght, normalization window(True, False)
+    Input: Filename, sequence Length, normalization window(True, False)
     Output: X_tr, Y_tr, X_te, Y_te
 
     Note: Normalization data using n_i = (p_i / p_0) - 1,
