@@ -1,5 +1,5 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+# !/usr/bin/env python3
+#  -*- coding: utf-8 -*-
 
 from tensorflow.keras.layers import Dense, Activation, Dropout
 from tensorflow.keras.layers import LSTM
@@ -8,12 +8,14 @@ from tensorflow.keras.layers import Conv1D
 from tensorflow.keras.layers import MaxPooling1D
 import helper
 import time
+import os
 from sklearn.metrics import mean_squared_error
 import numpy as np
 
 # Load Data
 seq_len = 50
 norm_win = True
+print(os.getcwd())
 filename = './../sp500_prices.csv'
 X_tr, Y_tr, X_te, Y_te = helper.load_data(filename, seq_len, norm_win)
 # Model Build
