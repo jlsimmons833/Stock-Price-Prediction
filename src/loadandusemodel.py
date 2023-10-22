@@ -11,17 +11,18 @@ import os
 from sklearn.metrics import mean_squared_error
 import numpy as np
 
-
-model = load_model('Tradingtools/Stock-Price-Prediction/src/model.h5')
+model = load_model('./src/model.h5')
+#model = load_model('Tradingtools/Stock-Price-Prediction/src/model.h5')
 
 seq_len = 50
 
-X_te = helper.load_data('Tradingtools/last50_sp500_prices.csv', seq_len, True)
+X_te = helper.load_data('../last50_sp500_prices.csv', seq_len, True)
+#X_te = helper.load_data('Tradingtools/last50_sp500_prices.csv', seq_len, True)
 
 win_size = seq_len
 pred_len = seq_len
 plot = True
-
+temp_pred = model.predict(X_te)
 if plot:
     pred = helper.predict_seq_mul(model, X_te, win_size, pred_len)
     print("I have now predicted the next 50 days of the S&P 500 index. Here are the results starting with the value of X-te and then the prediction: ")

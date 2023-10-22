@@ -63,7 +63,8 @@ def predict_seq_mul(model, data, win_size, pred_len):
     #prediction = model.predict(data)
     pprint.pprint(data)
     pred_seq = []
-    for i in range(len(data)//pred_len):
+    value1 = len(data)//pred_len
+    for i in range(max(1,len(data)//pred_len)):
         current = data[i * pred_len]
         predicted = []
         for j in range(pred_len):
