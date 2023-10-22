@@ -16,7 +16,8 @@ import numpy as np
 seq_len = 50
 norm_win = True
 print(os.getcwd())
-filename = './../sp500_prices.csv'
+#filename = './../sp500_prices.csv'
+filename = 'Tradingtools/sp500_prices.csv'
 X_tr, Y_tr, X_te, Y_te = helper.load_data(filename, seq_len, norm_win)
 # Model Build
 model = Sequential()
@@ -29,7 +30,7 @@ model.add(MaxPooling1D(pool_size=2))
 model.add(LSTM(100,
                return_sequences=False))
 model.add(Dropout(0.2))
-model.add(Dense(units=seq_len))  # Linear dense layer to aggregate into 1 val
+model.add(Dense(units=1))  # Linear dense layer to aggregate into 1 val
 model.add(Activation('linear'))
 timer_start = time.time()
 model.compile(loss='mse', optimizer='rmsprop')
@@ -38,7 +39,7 @@ print('Model built in: ', time.time()-timer_start)
 model.fit(X_tr,
           Y_tr,
           batch_size=512,
-          epochs=5,
+          epochs=200,
           validation_split=0.05
           )
 # Predictions
@@ -72,3 +73,5 @@ else:
     corr_t_1 = np.corrcoef(Y_te, y_t_1)
     print("Correlation of y_bar \n ", corr_base, "\n t-1 model \n", corr_t_1,
           "\n DL model\n", corr_model)
+
+model.save('Tradingtools/Stock-Price-Prediction/src/model.h5')
