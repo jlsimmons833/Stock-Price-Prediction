@@ -13,7 +13,7 @@ import numpy as np
 
 #model = load_model('./src/model.h5')
 model = load_model('Tradingtools/Stock-Price-Prediction/src/model.h5')
-model = load_model('./src/model.h5')
+#model = load_model('./src/model.h5')
 #model = load_model('Tradingtools/Stock-Price-Prediction/src/model.h5')
 
 seq_len = 50
@@ -21,7 +21,7 @@ seq_len = 50
 #X_te, orig_data = helper.load_data('../last50_sp500_prices.csv', seq_len, True)
 X_te, orig_data = helper.load_data('Tradingtools/last50_sp500_prices.csv', seq_len, True)
 X_te = np.reshape(X_te, (1,seq_len, 1))
-X_te = helper.load_data('../last50_sp500_prices.csv', seq_len, True)
+#X_te = helper.load_data('../last50_sp500_prices.csv', seq_len, True)
 #X_te = helper.load_data('Tradingtools/last50_sp500_prices.csv', seq_len, True)
 
 win_size = seq_len
