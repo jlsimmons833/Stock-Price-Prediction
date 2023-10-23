@@ -1,6 +1,7 @@
 # !/usr/bin/env python3
 #  -*- coding: utf-8 -*-
 
+import pprint
 from tensorflow.keras.layers import Dense, Activation, Dropout
 from tensorflow.keras.layers import LSTM
 from tensorflow.keras.models import Sequential
@@ -53,6 +54,10 @@ else:
     pred = helper.predict_pt_pt(model, X_te)
     mse_model = mean_squared_error(Y_te, pred)
     print("MSE of DL model ", mse_model)
+    pprint.pprint(pred)
+    pred.savetxt(pred.csv, delimiter=",")
+    pprint.pprint(Y_te)
+    Y_te.savetxt(Y_te.csv, delimiter=",")
     # Stupid Model
     y_bar = np.mean(X_te, axis=1)
     y_bar = np.reshape(y_bar, (y_bar.shape[0]))

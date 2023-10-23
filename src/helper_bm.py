@@ -44,11 +44,11 @@ def load_data(filename, seq_len, norm_win):
     data = data[:len(data) - 1]
     #pprint.pprint(data)
     if norm_win:
-        data = normalize_windows(data)
-    X_te = np.array(data)
+        norm_data = normalize_windows(data)
+    X_te = np.array(norm_data)
     #X_te = np.reshape(X_te, (X_te.shape[0], X_te.shape[1], 1))
     #pprint.pprint(X_te)
-    return [X_te]
+    return [X_te, data]
 
 
 def predict_seq_mul(model, data, win_size, pred_len):
@@ -63,7 +63,8 @@ def predict_seq_mul(model, data, win_size, pred_len):
     #prediction = model.predict(data)
     pprint.pprint(data)
     pred_seq = []
-    for i in range(len(data)//pred_len):
+    value1 = len(data)//pred_len
+    for i in range(max(1,len(data)//pred_len)):
         current = data[i * pred_len]
         predicted = []
         for j in range(pred_len):
